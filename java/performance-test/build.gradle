@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.2.2'
+
+    // JPA
+    compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
+//    compile 'org.eclipse.persistence:eclipselink:2.5.2'
+
+    // MyBatis
+    compile 'org.mybatis:mybatis:3.2.8'
+
+    // DB
+    compile 'com.h2database:h2:1.4.182'
+//    compile 'org.apache.derby:derby:10.11.1.1'
+
+    // Log
+    compile 'log4j:log4j:1.2.17'
+}
