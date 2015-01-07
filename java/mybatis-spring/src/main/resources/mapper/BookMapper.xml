@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.BookMapper">
+
+    <update id="createTable">
+        CREATE TABLE IF NOT EXISTS book (
+            id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            title varchar(255) NOT NULL,
+            author varchar(255)
+        )
+    </update>
+
+    <insert id="save" parameterType="entity.Book" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO book (title, author)
+        VALUES (#{title}, #{author})
+    </insert>
+
+    <select id="findByTitle" resultType="entity.Book">
+        SELECT * FROM book WHERE title = #{title}
+    </select>
+
+    <select id="findByAuthor" resultType="entity.Book">
+        SELECT * FROM book WHERE author = #{author}
+    </select>
+
+</mapper>
