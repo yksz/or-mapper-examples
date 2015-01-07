@@ -1,0 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.mybatis:mybatis:3.2.8'
+    compile 'com.h2database:h2:1.4.+'
+    compile 'log4j:log4j:1.2.17'
+}
