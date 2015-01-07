@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'jacoco'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // mandatory dependencies for using Spock
+    testCompile "org.codehaus.groovy:groovy-all:2.2.2"
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+
+    // optional dependencies for using Spock
+    testCompile "org.hamcrest:hamcrest-core:1.2" // only necessary if Hamcrest matchers are used
+    testRuntime "cglib:cglib-nodep:2.2"          // allows mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:1.2"    // allows mocking of classes without default constructor (together with CGLIB)
+
+    // dependencies used in this project
+    compile 'org.hibernate:hibernate-core:3.6.10.Final'
+    compile 'org.javassist:javassist:3.15.0-GA'
+    compile 'com.h2database:h2:1.3.+'
+}
