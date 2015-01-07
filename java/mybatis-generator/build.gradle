@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    driver = 'h2'
+}
+
+configurations {
+    executable
+}
+
+dependencies {
+    compile 'org.mybatis:mybatis:3.2.8'
+    compile 'com.h2database:h2:1.4.+'
+    compile 'log4j:log4j:1.2.17'
+
+    executable 'org.mybatis.generator:mybatis-generator-core:1.3.2'
+}
+
+task execSql(type: Exec) {
+    def script = "$projectDir/sql/sql.groovy"
+    def jar = configurations.compile.find { it.name =~ /${driver}-[\d\.]+jar/ }
+    commandLine 'groovy', script, '-cp', jar
+}
+
+task copyDriver() {
+    def src = configurations.compile.find { it.name =~ /${driver}-[\d\.]+jar/ }
+    def dst = "$buildDir/tmp/driver.jar"
+    outputs.file dst
+    doLast {
+        ant.copy(file: src, tofile: dst)
+    }
+}
+
+task genCode(type: Exec, dependsOn: [execSql, copyDriver]) {
+    description 'Generates the codes for MyBatis3'
+    def jar = configurations.executable.find { it.name =~ /mybatis-generator-core-[\d\.]+jar/ }
+    def main = 'org.mybatis.generator.api.ShellRunner'
+    def configfile = "$projectDir/generatorConfig.xml"
+    commandLine 'java', '-cp', ".${File.pathSeparator}${jar}", main, '-configfile', configfile, '-overwrite'
+}
