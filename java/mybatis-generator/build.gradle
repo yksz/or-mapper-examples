@@ -25,7 +25,7 @@ dependencies {
 task execSql(type: Exec) {
     def script = "$projectDir/sql/sql.groovy"
     def jar = configurations.compile.find { it.name =~ /${driver}-[\d\.]+jar/ }
-    commandLine 'groovy', script, '-cp', jar
+    commandLine 'groovy', '-cp', jar, script
 }
 
 task copyDriver() {
