@@ -4,7 +4,6 @@ import java.util.List;
 
 import mapper.BookMapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,11 @@ import entity.Book;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
     private BookMapper bookMapper;
+
+    public void setBookMapper(BookMapper bookMapper) {
+        this.bookMapper = bookMapper;
+    }
 
     @Transactional
     public void save(Book book) throws Exception {

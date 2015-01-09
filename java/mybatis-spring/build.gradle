@@ -10,6 +10,8 @@ dependencies {
     compile 'org.springframework:spring-jdbc:3.2.3.RELEASE'
     compile 'org.springframework:spring-tx:3.2.3.RELEASE'
 
+    compile 'commons-dbcp:commons-dbcp:1.4'
+
     compile 'org.mybatis:mybatis:3.2.8'
     compile 'org.mybatis:mybatis-spring:1.2.2'
     compile 'com.h2database:h2:1.4.+'
