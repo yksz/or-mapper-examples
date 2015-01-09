@@ -13,4 +13,8 @@ public class ServiceFactory {
         return context.getBean(BookService.class);
     }
 
+    public static ProductService getProductService() {
+        return context.getBean(ProductService.class);
+    }
+
 }

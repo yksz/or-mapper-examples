@@ -10,22 +10,43 @@
 
     <context:property-placeholder location="classpath*:db.properties" />
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!-- datasource -->
+    <bean id="abstractDataSource" abstract="true" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}" />
-        <property name="url" value="${url}" />
         <property name="username" value="${user}" />
         <property name="password" value="${password}" />
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="localDataSource" parent="abstractDataSource">
+        <property name="url" value="${url.local}" />
+    </bean>
+
+    <bean id="remoteDataSource" parent="abstractDataSource">
+        <property name="url" value="${url.remote}" />
+    </bean>
+
+    <!-- transaction -->
+    <bean id="localTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="localDataSource" />
+        <qualifier value="local"/>
+    </bean>
+
+    <bean id="remoteTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="remoteDataSource" />
+        <qualifier value="remote"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="localTransactionManager" />
+
+    <!-- sql session -->
+    <bean id="localSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="localDataSource" />
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="remoteSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="remoteDataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
-
-    <tx:annotation-driven />
 
 </beans>

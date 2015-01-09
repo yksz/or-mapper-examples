@@ -4,8 +4,14 @@
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="classpath:spring/context-mapper.xml" />
+
     <bean id="bookService" class="service.BookServiceImpl">
         <property name="bookMapper" ref="bookMapper" />
+    </bean>
+
+    <bean id="productService" class="service.ProductServiceImpl">
+        <property name="productMapper" ref="productMapper" />
     </bean>
 
 </beans>

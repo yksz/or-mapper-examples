@@ -4,8 +4,16 @@
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="mapper" />
+    <import resource="classpath:spring/context-dataaccess.xml" />
+
+    <bean id="bookMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="mapper.BookMapper" />
+        <property name="sqlSessionFactory" ref="localSqlSessionFactory" />
+    </bean>
+
+    <bean id="productMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="mapper.ProductMapper" />
+        <property name="sqlSessionFactory" ref="remoteSqlSessionFactory" />
     </bean>
 
 </beans>
