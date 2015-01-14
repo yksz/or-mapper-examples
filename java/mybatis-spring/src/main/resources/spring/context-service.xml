@@ -14,4 +14,9 @@
         <property name="productMapper" ref="productMapper" />
     </bean>
 
+    <bean id="blogBookService" class="service.BlogBookServiceImpl">
+        <property name="blogMapper" ref="blogMapper" />
+        <property name="bookMapper" ref="bookMapper" />
+    </bean>
+
 </beans>

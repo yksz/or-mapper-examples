@@ -4,13 +4,12 @@ import java.util.List;
 
 import mapper.ProductMapper;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import entity.Product;
 
-@Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService, InitializingBean {
 
     private ProductMapper productMapper;
 
@@ -18,9 +17,13 @@ public class ProductServiceImpl implements ProductService {
         this.productMapper = productMapper;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        productMapper.createTable();
+    }
+
     @Transactional("remote")
     public void save(Product Product) throws Exception {
-        productMapper.createTable();
         productMapper.save(Product);
     }
 

@@ -4,13 +4,12 @@ import java.util.List;
 
 import mapper.BookMapper;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import entity.Book;
 
-@Service
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService, InitializingBean {
 
     private BookMapper bookMapper;
 
@@ -18,9 +17,13 @@ public class BookServiceImpl implements BookService {
         this.bookMapper = bookMapper;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        bookMapper.createTable();
+    }
+
     @Transactional
     public void save(Book book) throws Exception {
-        bookMapper.createTable();
         bookMapper.save(book);
     }
 
