@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:3.2.3.RELEASE'
+    compile 'org.springframework:spring-jdbc:3.2.3.RELEASE'
+    compile 'org.springframework:spring-tx:3.2.3.RELEASE'
+
+    compile 'commons-dbcp:commons-dbcp:1.4'
+
+    compile 'org.mybatis:mybatis:3.2.8'
+    compile 'org.mybatis:mybatis-spring:1.2.2'
+    compile 'com.h2database:h2:1.4.+'
+    compile 'org.apache.derby:derby:10.10.+'
+    compile 'log4j:log4j:1.2.17'
+
+    testCompile 'junit:junit:4.+'
+}
