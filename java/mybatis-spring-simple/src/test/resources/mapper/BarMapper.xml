@@ -14,7 +14,7 @@
     </update>
 
     <update id="dropTable">
-        DROP TABLE bar IF EXISTS;
+        DROP TABLE bar IF EXISTS
     </update>
 
     <insert id="save" parameterType="entity.Bar" useGeneratedKeys="true" keyProperty="id">

@@ -47,25 +47,25 @@ public class RollbackTest {
         assertEquals(0, fooBarService.findFoo().size());
         assertEquals(0, fooBarService.findBar().size());
 
-        // when:
+        // when: Exception
         try {
-            fooBarService.save(foo, bar, new RuntimeException()); // rollback
+            fooBarService.save(foo, bar, new Exception());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // then:
-        assertEquals(0, fooBarService.findFoo().size());
-        assertEquals(0, fooBarService.findBar().size());
+        // then: commit
+        assertEquals(1, fooBarService.findFoo().size());
+        assertEquals(1, fooBarService.findBar().size());
 
-        // when:
+        // when: RuntimeException
         try {
-            fooBarService.save(foo, bar, new Exception()); // commit
+            fooBarService.save(foo, bar, new RuntimeException());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // then:
+        // then: rollback
         assertEquals(1, fooBarService.findFoo().size());
         assertEquals(1, fooBarService.findBar().size());
     }
