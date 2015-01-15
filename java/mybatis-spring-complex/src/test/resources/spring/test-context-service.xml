@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:spring/test-context-mapper.xml" />
+
+    <bean id="localService" class="service.LocalServiceImpl">
+        <property name="localMapper" ref="localMapper" />
+    </bean>
+
+    <bean id="remoteService" class="service.RemoteServiceImpl">
+        <property name="remoteMapper" ref="remoteMapper" />
+    </bean>
+
+    <bean id="localRemoteService" class="service.LocalRemoteService">
+        <property name="localMapper" ref="localMapper" />
+        <property name="remoteMapper" ref="remoteMapper" />
+    </bean>
+
+</beans>

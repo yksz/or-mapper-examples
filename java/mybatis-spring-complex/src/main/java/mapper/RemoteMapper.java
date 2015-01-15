@@ -9,6 +9,7 @@ import entity.Remote;
 public interface RemoteMapper {
 
     void createTable();
+    void dropTable();
     void save(Remote remote);
     @Select("SELECT * FROM remote")
     List<Remote> findAll();

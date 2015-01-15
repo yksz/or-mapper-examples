@@ -13,6 +13,10 @@
         )
     </update>
 
+    <update id="dropTable">
+        DROP TABLE local IF EXISTS
+    </update>
+
     <insert id="save" parameterType="entity.Local" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO local (name)
         VALUES (#{name})

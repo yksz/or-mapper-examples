@@ -13,6 +13,10 @@
         )
     </update>
 
+    <update id="dropTable">
+        DROP TABLE remote IF EXISTS
+    </update>
+
     <insert id="save" parameterType="entity.Remote" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO remote (name)
         VALUES (#{name})

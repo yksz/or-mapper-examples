@@ -9,6 +9,7 @@ import entity.Local;
 public interface LocalMapper {
 
     void createTable();
+    void dropTable();
     void save(Local local);
     @Select("SELECT * FROM local")
     List<Local> findAll();
