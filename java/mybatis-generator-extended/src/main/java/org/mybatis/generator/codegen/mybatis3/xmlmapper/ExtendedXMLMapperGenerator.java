@@ -27,6 +27,7 @@ public class ExtendedXMLMapperGenerator extends XMLMapperGenerator {
 
         context.getCommentGenerator().addRootComment(answer);
 
+        // EDIT
         addResultMapWithoutBLOBsElement(answer);
         addSelectAllElement(answer);
         addSelectByPrimaryKeyElement(answer);
@@ -37,17 +38,17 @@ public class ExtendedXMLMapperGenerator extends XMLMapperGenerator {
         return answer;
     }
 
+    protected void addSelectAllElement(XmlElement parentElement) {
+        AbstractXmlElementGenerator elementGenerator = new SimpleSelectAllElementGenerator();
+        initializeAndExecuteGenerator(elementGenerator, parentElement);
+    }
+
     @Override
     protected void addSelectByPrimaryKeyElement(XmlElement parentElement) {
         if (introspectedTable.getRules().generateSelectByPrimaryKey()) {
             AbstractXmlElementGenerator elementGenerator = new SimpleSelectByPrimaryKeyElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
-    }
-
-    protected void addSelectAllElement(XmlElement parentElement) {
-        AbstractXmlElementGenerator elementGenerator = new SimpleSelectAllElementGenerator();
-        initializeAndExecuteGenerator(elementGenerator, parentElement);
     }
 
     @Override

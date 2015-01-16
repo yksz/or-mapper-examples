@@ -45,6 +45,7 @@ public class ExtendedJavaMapperGenerator extends JavaMapperGenerator {
             interfaze.addImportedType(fqjt);
         }
 
+        // EDIT
         addSelectAllMethod(interfaze);
         addSelectByPrimaryKeyMethod(interfaze);
         addInsertSelectiveMethod(interfaze);
