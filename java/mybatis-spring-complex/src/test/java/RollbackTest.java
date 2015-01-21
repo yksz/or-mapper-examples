@@ -38,16 +38,16 @@ public class RollbackTest {
         // setup:
         Local local = new Local();
         local.setName("local");
-
         Remote remote = new Remote();
         remote.setName("remote");
 
-        // when:
+        // when: initial state
+
         // then:
         assertEquals(0, localRemoteService.findLocal().size());
         assertEquals(0, localRemoteService.findRemote().size());
 
-        // when: Exception
+        // when: throw Exception
         try {
             localRemoteService.save(local, remote, new Exception());
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class RollbackTest {
         assertEquals(1, localRemoteService.findLocal().size());
         assertEquals(1, localRemoteService.findRemote().size());
 
-        // when: RuntimeException
+        // when: throw RuntimeException
         try {
             localRemoteService.save(local, remote, new RuntimeException());
         } catch (Exception e) {
