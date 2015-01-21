@@ -38,16 +38,16 @@ public class RollbackTest {
         // setup:
         Foo foo = new Foo();
         foo.setName("foo");
-
         Bar bar = new Bar();
         bar.setName("bar");
 
-        // when:
+        // when: initial state
+
         // then:
         assertEquals(0, fooBarService.findFoo().size());
         assertEquals(0, fooBarService.findBar().size());
 
-        // when: Exception
+        // when: throw Exception
         try {
             fooBarService.save(foo, bar, new Exception());
         } catch (Exception e) {
@@ -58,9 +58,47 @@ public class RollbackTest {
         assertEquals(1, fooBarService.findFoo().size());
         assertEquals(1, fooBarService.findBar().size());
 
-        // when: RuntimeException
+        // when: throw RuntimeException
         try {
             fooBarService.save(foo, bar, new RuntimeException());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // then: rollback
+        assertEquals(1, fooBarService.findFoo().size());
+        assertEquals(1, fooBarService.findBar().size());
+    }
+
+
+    @Test
+    public void testRollbackForMultiTableWithProgrammaticTransaction() throws Exception {
+        // setup:
+        Foo foo = new Foo();
+        foo.setName("foo");
+        Bar bar = new Bar();
+        bar.setName("bar");
+
+        // when: initial state
+
+        // then:
+        assertEquals(0, fooBarService.findFoo().size());
+        assertEquals(0, fooBarService.findBar().size());
+
+        // when: not throw Exception
+        try {
+            fooBarService.saveWithProgrammaticTransaction(foo, bar, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // then: commit
+        assertEquals(1, fooBarService.findFoo().size());
+        assertEquals(1, fooBarService.findBar().size());
+
+        // when: throw Exception
+        try {
+            fooBarService.saveWithProgrammaticTransaction(foo, bar, new Exception());
         } catch (Exception e) {
             e.printStackTrace();
         }
