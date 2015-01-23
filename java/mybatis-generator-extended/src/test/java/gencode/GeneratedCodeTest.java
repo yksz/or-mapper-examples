@@ -2,16 +2,13 @@ package gencode;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.Statement;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,16 +20,14 @@ import gencode.mapper.BookMapper;
 public class GeneratedCodeTest {
 
     @Autowired
-    private DataSource dataSource;
-    @Autowired
     private BookMapper mapper;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 
     @Before
     public void setup() throws Exception {
-        Connection conn = dataSource.getConnection();
-        Statement statement = conn.createStatement();
-        statement.execute("DELETE FROM book");
-        conn.close();
+        jdbcTemplate.update("DELETE FROM book");
     }
 
     @Test
