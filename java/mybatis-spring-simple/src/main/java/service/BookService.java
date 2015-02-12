@@ -6,7 +6,7 @@ import entity.Book;
 
 public interface BookService {
 
-    void save(Book book) throws Exception;
+    Integer save(Book book) throws Exception;
     List<Book> findAll() throws Exception;
     List<Book> findByTitle(String title) throws Exception;
     List<Book> findByAuthor(String author) throws Exception;

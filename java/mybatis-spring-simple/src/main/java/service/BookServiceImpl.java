@@ -17,8 +17,9 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     @Transactional
-    public void save(Book book) throws Exception {
+    public Integer save(Book book) throws Exception {
         bookMapper.save(book);
+        return book.getId();
     }
 
     @Transactional(readOnly = true)
