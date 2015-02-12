@@ -23,8 +23,9 @@ public class RemoteServiceImpl implements RemoteService, InitializingBean {
     }
 
     @Transactional("remote")
-    public void save(Remote remote) throws Exception {
+    public Integer save(Remote remote) throws Exception {
         remoteMapper.save(remote);
+        return remote.getId();
     }
 
     @Transactional(value = "remote", readOnly = true)

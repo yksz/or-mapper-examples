@@ -14,6 +14,7 @@ public class Sample {
 
         LocalService localService = ServiceFactory.getLocalService();
         localService.save(local);
+        System.out.println("save: " + local);
         show(localService.findAll(), "findAll:");
         show(localService.findByName("local"), "findByName:");
 
@@ -23,6 +24,7 @@ public class Sample {
 
         RemoteService remoteService = ServiceFactory.getRemoteService();
         remoteService.save(remote);
+        System.out.println("save: " + remote);
         show(remoteService.findAll(), "findAll:");
         show(remoteService.findByName("remote"), "findByName:");
     }

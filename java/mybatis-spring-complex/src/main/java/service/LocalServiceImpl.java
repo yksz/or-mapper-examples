@@ -23,8 +23,9 @@ public class LocalServiceImpl implements LocalService, InitializingBean {
     }
 
     @Transactional
-    public void save(Local local) throws Exception {
+    public Integer save(Local local) throws Exception {
         localMapper.save(local);
+        return local.getId();
     }
 
     @Transactional(readOnly = true)
