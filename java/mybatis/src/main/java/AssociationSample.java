@@ -18,8 +18,8 @@ public class AssociationSample {
 
         ParentService parentService = new ParentServiceImpl();
         ChildService childService = new ChildServiceImpl();
-        parentService.save(parent);
-        childService.save(child);
+        System.out.println("saveParent: id=" + parentService.saveParent(parent));
+        System.out.println("saveChild: id=" + childService.saveChild(child));
         show(parentService.findAllParents(), "findAllParents:");
         show(parentService.findParentsByName("foo"), "findParentsByName:");
         show(childService.findAllChildren(), "findAllChildren:");

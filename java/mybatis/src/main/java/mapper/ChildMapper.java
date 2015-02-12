@@ -7,7 +7,7 @@ import entity.Child;
 public interface ChildMapper {
 
     void createTable();
-    void save(Child child);
+    Integer saveChild(Child child);
     List<Child> findAllChildren();
     List<Child> findChildrenByName(String name);
 

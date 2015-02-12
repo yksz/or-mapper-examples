@@ -6,7 +6,7 @@ import entity.Parent;
 
 public interface ParentService {
 
-    void save(Parent parent) throws Exception;
+    Integer saveParent(Parent parent) throws Exception;
     List<Parent> findAllParents() throws Exception;
     List<Parent> findParentsByName(String name) throws Exception;
 

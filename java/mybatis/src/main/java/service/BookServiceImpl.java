@@ -20,7 +20,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void save(Book book) throws Exception {
+    public Integer save(Book book) throws Exception {
         if (book == null)
             throw new NullPointerException("book must not be null");
 
@@ -35,6 +35,7 @@ public class BookServiceImpl implements BookService {
         } finally {
             session.close();
         }
+        return book.getId();
     }
 
     @Override

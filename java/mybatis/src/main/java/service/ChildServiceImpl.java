@@ -21,14 +21,14 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public void save(Child child) throws Exception {
+    public Integer saveChild(Child child) throws Exception {
         if (child == null)
             throw new NullPointerException("child must not be null");
 
         SqlSession session = sqlSessionFactory.openSession();
         try {
             ChildMapper mapper = session.getMapper(ChildMapper.class);
-            mapper.save(child);
+            mapper.saveChild(child);
             session.commit();
         } catch (Exception e) {
             session.rollback();
@@ -36,6 +36,7 @@ public class ChildServiceImpl implements ChildService {
         } finally {
             session.close();
         }
+        return child.getId();
     }
 
     @Override

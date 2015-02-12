@@ -12,7 +12,7 @@ public class Sample {
         book.setAuthor("bar");
 
         BookService bookService = new BookServiceImpl();
-        bookService.save(book);
+        System.out.println("save: id=" + bookService.save(book));
         show(bookService.findAll(), "findAll:");
         show(bookService.findByTitle("foo"), "findByTitle:");
         show(bookService.findByAuthor("bar"), "findByAuthor:");

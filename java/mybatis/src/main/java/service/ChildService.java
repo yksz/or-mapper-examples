@@ -6,7 +6,7 @@ import entity.Child;
 
 public interface ChildService {
 
-    void save(Child child) throws Exception;
+    Integer saveChild(Child child) throws Exception;
     List<Child> findAllChildren() throws Exception;
     List<Child> findChildrenByName(String name) throws Exception;
 

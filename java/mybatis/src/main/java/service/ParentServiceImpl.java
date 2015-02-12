@@ -21,14 +21,14 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public void save(Parent parent) throws Exception {
+    public Integer saveParent(Parent parent) throws Exception {
         if (parent == null)
             throw new NullPointerException("parent must not be null");
 
         SqlSession session = sqlSessionFactory.openSession();
         try {
             ParentMapper mapper = session.getMapper(ParentMapper.class);
-            mapper.save(parent);
+            mapper.saveParent(parent);
             session.commit();
         } catch (Exception e) {
             session.rollback();
@@ -36,6 +36,7 @@ public class ParentServiceImpl implements ParentService {
         } finally {
             session.close();
         }
+        return parent.getId();
     }
 
     @Override

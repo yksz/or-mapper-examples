@@ -7,7 +7,7 @@ import entity.Parent;
 public interface ParentMapper {
 
     void createTable();
-    void save(Parent parent);
+    Integer saveParent(Parent parent);
     List<Parent> findAllParents();
     List<Parent> findParentsByName(String name);
 
