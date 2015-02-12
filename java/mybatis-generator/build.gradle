@@ -2,12 +2,12 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 
-repositories {
-    mavenCentral()
-}
-
 ext {
     driver = 'h2'
+}
+
+repositories {
+    mavenCentral()
 }
 
 configurations {

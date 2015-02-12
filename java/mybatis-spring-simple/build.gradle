@@ -1,14 +1,18 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+ext {
+    springVersion = '3.2.3.RELEASE'
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.springframework:spring-context:3.2.3.RELEASE'
-    compile 'org.springframework:spring-jdbc:3.2.3.RELEASE'
-    compile 'org.springframework:spring-tx:3.2.3.RELEASE'
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-jdbc:${springVersion}"
+    compile "org.springframework:spring-tx:${springVersion}"
 
     compile 'commons-dbcp:commons-dbcp:1.4'
 
@@ -19,5 +23,5 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
 
     testCompile 'junit:junit:4.+'
-    testCompile 'org.springframework:spring-test:3.2.3.RELEASE'
+    testCompile "org.springframework:spring-test:${springVersion}"
 }
