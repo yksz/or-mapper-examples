@@ -1,10 +1,16 @@
 package entity;
 
 public class Book {
+    public enum Category {
+        UNKNOWN,
+        NOVEL,
+        MAGAZINE,
+    }
 
     private Integer id;
     private String title;
     private String author;
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -30,6 +36,14 @@ public class Book {
         this.author = author;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -39,6 +53,8 @@ public class Book {
         builder.append(title);
         builder.append(", author=");
         builder.append(author);
+        builder.append(", category=");
+        builder.append(category);
         builder.append("]");
         return builder.toString();
     }

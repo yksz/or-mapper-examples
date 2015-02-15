@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import entity.Book;
+import entity.Book.Category;
 
 public interface BookService {
 
@@ -10,5 +11,6 @@ public interface BookService {
     List<Book> findAll() throws Exception;
     List<Book> findByTitle(String title) throws Exception;
     List<Book> findByAuthor(String author) throws Exception;
+    List<Book> findByCategory(Category category) throws Exception;
 
 }

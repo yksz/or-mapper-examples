@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import entity.Book;
+import entity.Book.Category;
 
 public class BookServiceImpl implements BookService {
 
@@ -63,6 +64,16 @@ public class BookServiceImpl implements BookService {
         SqlSession session = sqlSessionFactory.openSession();
         BookMapper mapper = session.getMapper(BookMapper.class);
         return mapper.findByAuthor(author);
+    }
+
+    @Override
+    public List<Book> findByCategory(Category category) throws Exception {
+        if (category == null)
+            throw new NullPointerException("category must not be null");
+
+        SqlSession session = sqlSessionFactory.openSession();
+        BookMapper mapper = session.getMapper(BookMapper.class);
+        return mapper.findByCategory(category);
     }
 
 }

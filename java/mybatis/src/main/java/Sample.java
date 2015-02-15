@@ -1,6 +1,7 @@
 import java.util.List;
 
 import entity.Book;
+import entity.Book.Category;
 import service.BookService;
 import service.BookServiceImpl;
 
@@ -16,6 +17,7 @@ public class Sample {
         show(bookService.findAll(), "findAll:");
         show(bookService.findByTitle("foo"), "findByTitle:");
         show(bookService.findByAuthor("bar"), "findByAuthor:");
+        show(bookService.findByCategory(Category.UNKNOWN), "findByCategory:");
     }
 
     static <T> void show(List<T> objs, String msg) {
