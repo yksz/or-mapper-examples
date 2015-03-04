@@ -13,13 +13,13 @@
         )
     </update>
 
-    <resultMap id="parentResult" type="Parent">
+    <resultMap id="Parent_ResultMap" type="Parent">
         <id property="id" column="parent_id" />
         <result property="name" column="parent_name" />
-        <collection property="children" ofType="Child" resultMap="childResult" columnPrefix="child_" />
+        <collection property="children" ofType="Child" resultMap="Child_ResultMap" columnPrefix="child_" />
     </resultMap>
 
-    <resultMap id="childResult" type="Child">
+    <resultMap id="Child_ResultMap" type="Child">
         <id property="id" column="id" />
         <result property="name" column="name" />
     </resultMap>
@@ -29,16 +29,16 @@
         VALUES (#{name})
     </insert>
 
-    <select id="findAllParents" resultMap="parentResult">
-        <include refid="selectParents" />
+    <select id="findAllParents" resultMap="Parent_ResultMap">
+        <include refid="SelectParents_Fragment" />
     </select>
 
-    <select id="findParentsByName" resultMap="parentResult">
-        <include refid="selectParents" />
+    <select id="findParentsByName" resultMap="Parent_ResultMap">
+        <include refid="SelectParents_Fragment" />
         WHERE p.name = #{name}
     </select>
 
-    <sql id="selectParents">
+    <sql id="SelectParents_Fragment">
         SELECT
             p.id        as parent_id,
             p.name      as parent_name,

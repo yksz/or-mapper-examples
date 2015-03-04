@@ -5,7 +5,7 @@
 
 <mapper namespace="mapper.BookMapper">
 
-  <resultMap id="BaseResultMap" type="entity.Book">
+  <resultMap id="Base_ResultMap" type="entity.Book">
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
@@ -37,19 +37,19 @@
     </trim>
   </insert>
 
-  <select id="findAll" resultMap="BaseResultMap">
+  <select id="findAll" resultMap="Base_ResultMap">
     SELECT * FROM book
   </select>
 
-  <select id="findByTitle" resultMap="BaseResultMap">
+  <select id="findByTitle" resultMap="Base_ResultMap">
     SELECT * FROM book WHERE title = #{title}
   </select>
 
-  <select id="findByAuthor" resultMap="BaseResultMap">
+  <select id="findByAuthor" resultMap="Base_ResultMap">
     SELECT * FROM book WHERE author = #{author}
   </select>
 
-  <select id="findByCategory" resultMap="BaseResultMap">
+  <select id="findByCategory" resultMap="Base_ResultMap">
     SELECT * FROM book WHERE category = #{category.ordinal}
   </select>
 
