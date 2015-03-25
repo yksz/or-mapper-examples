@@ -16,8 +16,16 @@ public class BookServiceImpl implements BookService {
 
     static {
         SqlSession session = sqlSessionFactory.openSession();
-        BookMapper mapper = session.getMapper(BookMapper.class);
-        mapper.createTable();
+        try {
+            BookMapper mapper = session.getMapper(BookMapper.class);
+            mapper.createTable();
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
