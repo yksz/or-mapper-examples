@@ -16,8 +16,11 @@ public class ParentServiceImpl implements ParentService {
 
     static {
         SqlSession session = sqlSessionFactory.openSession();
-        session.getMapper(ParentMapper.class).createTable();
-        session.getMapper(ChildMapper.class).createTable();
+        Sessions.withTransaction(session, () -> {
+            session.getMapper(ParentMapper.class).createTable();
+            session.getMapper(ChildMapper.class).createTable();
+            return null;
+        });
     }
 
     @Override
@@ -26,16 +29,11 @@ public class ParentServiceImpl implements ParentService {
             throw new NullPointerException("parent must not be null");
 
         SqlSession session = sqlSessionFactory.openSession();
-        try {
+        Sessions.withTransaction(session, () -> {
             ParentMapper mapper = session.getMapper(ParentMapper.class);
             mapper.saveParent(parent);
-            session.commit();
-        } catch (Exception e) {
-            session.rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
+            return null;
+        });
         return parent.getId();
     }
 

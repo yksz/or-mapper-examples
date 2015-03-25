@@ -16,8 +16,11 @@ public class ChildServiceImpl implements ChildService {
 
     static {
         SqlSession session = sqlSessionFactory.openSession();
-        session.getMapper(ChildMapper.class).createTable();
-        session.getMapper(ParentMapper.class).createTable();
+        Sessions.withTransaction(session, () -> {
+            session.getMapper(ChildMapper.class).createTable();
+            session.getMapper(ParentMapper.class).createTable();
+            return null;
+        });
     }
 
     @Override
@@ -26,16 +29,11 @@ public class ChildServiceImpl implements ChildService {
             throw new NullPointerException("child must not be null");
 
         SqlSession session = sqlSessionFactory.openSession();
-        try {
+        Sessions.withTransaction(session, () -> {
             ChildMapper mapper = session.getMapper(ChildMapper.class);
             mapper.saveChild(child);
-            session.commit();
-        } catch (Exception e) {
-            session.rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
+            return null;
+        });
         return child.getId();
     }
 
