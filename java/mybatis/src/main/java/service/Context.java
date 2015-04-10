@@ -18,13 +18,11 @@ class Context {
             InputStream in = Resources.getResourceAsStream(CONFIG_FILE);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Could not load " + CONFIG_FILE, e);
         }
     }
 
     public static SqlSessionFactory getSqlSessionFactory() {
-        if (sqlSessionFactory == null)
-            throw new RuntimeException("Could not load " + CONFIG_FILE);
         return sqlSessionFactory;
     }
 
