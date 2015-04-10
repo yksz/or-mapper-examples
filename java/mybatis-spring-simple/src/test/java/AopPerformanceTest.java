@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import service.FooBarService;
 import entity.Bar;
 import entity.Foo;
-
-import service.FooBarService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
@@ -46,22 +45,22 @@ public class AopPerformanceTest {
         Bar bar = new Bar();
         bar.setName("bar");
         {
-            long begin = System.nanoTime();
+            long start = System.nanoTime();
             try {
                 fooBarService.save(foo, bar, new RuntimeException());
             } catch (Exception e) {
             }
-            long end = System.nanoTime();
-            System.err.println("- Declarative transaction with annotation: " + (end - begin) / 1000000.0 + "[ms]");
+            long stop = System.nanoTime();
+            System.err.println("- Declarative transaction with annotation: " + (stop - start) / 1000000.0 + "[ms]");
         }
         {
-            long begin = System.nanoTime();
+            long start = System.nanoTime();
             try {
                 fooBarService.saveWithProgrammaticTransaction(foo, bar, new RuntimeException());
             } catch (Exception e) {
             }
-            long end = System.nanoTime();
-            System.err.println("- Programmatic transaction: " + (end - begin) / 1000000.0 + "[ms]");
+            long stop = System.nanoTime();
+            System.err.println("- Programmatic transaction: " + (stop - start) / 1000000.0 + "[ms]");
         }
     }
 
