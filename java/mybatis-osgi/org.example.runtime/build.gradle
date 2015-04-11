@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.mybatis:mybatis:3.2.8'
+    compile 'com.h2database:h2:1.4.186'
+    compile 'log4j:log4j:1.2.17'
+}
+
+jar {
+    manifest {
+        from "${projectDir}/META-INF/MANIFEST.MF"
+        attributes 'Bundle-ClassPath': '.,' + configurations.compile.collect { it.name }.join(',')
+    }
+    from {
+        configurations.compile.collect { it }
+    }
+}

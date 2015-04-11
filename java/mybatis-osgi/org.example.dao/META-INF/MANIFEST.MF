@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.example.dao
+Bundle-SymbolicName: org.example.dao
+Bundle-Version: 1.0.0
+Fragment-Host: org.example.datasource
+Import-Package: org.osgi.framework,
+ org.apache.ibatis.annotations
+Export-Package: org.example.dao.entity,
+ org.example.dao.mapper

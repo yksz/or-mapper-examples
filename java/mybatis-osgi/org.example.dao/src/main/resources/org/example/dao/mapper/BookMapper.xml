@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-dao.mapper.dtd">
+
+<mapper namespace="org.example.dao.mapper.BookMapper">
+
+  <resultMap id="Base_ResultMap" type="org.example.dao.entity.Book">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="category" property="category" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />
+  </resultMap>
+
+  <update id="createTable">
+    CREATE TABLE IF NOT EXISTS book (
+      id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      title varchar(255) NOT NULL,
+      author varchar(255) NOT NULL,
+      category smallint NOT NULL DEFAULT 0
+    )
+  </update>
+
+  <insert id="save" parameterType="org.example.dao.entity.Book" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">id,</if>
+      <if test="title != null">title,</if>
+      <if test="author != null">author,</if>
+      <if test="category != null">category,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">#{id},</if>
+      <if test="title != null">#{title},</if>
+      <if test="author != null">#{author},</if>
+      <if test="category != null">#{category.ordinal},</if>
+    </trim>
+  </insert>
+
+  <select id="findAll" resultMap="Base_ResultMap">
+    SELECT * FROM book
+  </select>
+
+  <select id="findByTitle" resultMap="Base_ResultMap">
+    SELECT * FROM book WHERE title = #{title}
+  </select>
+
+  <select id="findByAuthor" resultMap="Base_ResultMap">
+    SELECT * FROM book WHERE author = #{author}
+  </select>
+
+  <select id="findByCategory" resultMap="Base_ResultMap">
+    SELECT * FROM book WHERE category = #{category.ordinal}
+  </select>
+
+</mapper>

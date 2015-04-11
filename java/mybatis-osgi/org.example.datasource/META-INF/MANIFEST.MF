@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.example.datasource
+Bundle-SymbolicName: org.example.datasource
+Bundle-Version: 1.0.0
+Bundle-Activator: org.example.datasource.Activator
+Bundle-ActivationPolicy: lazy
+Import-Package: org.osgi.framework,
+ org.apache.ibatis.binding,
+ org.apache.ibatis.io,
+ org.apache.ibatis.session
+Export-Package: org.example.datasource

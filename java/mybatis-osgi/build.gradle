@@ -1,0 +1,43 @@
+apply plugin: 'eclipse'
+
+ext {
+    felixEnv = 'FELIX_HOME'
+}
+
+subprojects {
+    apply plugin: 'java'
+}
+
+def cleanTasks = subprojects.collect { project ->
+    "${project.name}:clean"
+}
+
+task clean(dependsOn: cleanTasks) << {
+    delete buildDir
+}
+
+def jarTasks = subprojects.collect { project ->
+    "${project.name}:jar"
+}
+
+task release(dependsOn: [clean, jarTasks]) << {
+    def distsDirName = "$buildDir/distributions"
+    def dst = mkdir(distsDirName)
+    def srcs = subprojects.collect { project ->
+        project.libsDir
+    }
+    copy {
+        from srcs
+        into dst
+    }
+}
+
+task deploy(dependsOn: release) << {
+    def felixHome = System.getenv(felixEnv)
+    if (felixHome == null)
+        throw new StopActionException("'$felixEnv' is not found")
+    copy {
+        from "$buildDir/distributions"
+        into "$felixHome/bundle"
+    }
+}

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.example.repository
+Bundle-SymbolicName: org.example.repository
+Bundle-Version: 1.0.0
+Bundle-Activator: org.example.repository.Activator
+Bundle-ActivationPolicy: lazy
+Import-Package: org.osgi.framework,
+ org.apache.ibatis.session,
+ org.example.datasource,
+ org.example.dao.entity,
+ org.example.dao.mapper
+Export-Package: org.example.repository
